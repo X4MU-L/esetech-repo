@@ -8,4 +8,10 @@ const codingChallenge = admin.initializeApp(
   },
   'esetech-coding-challenge'
 );
-exports.db = codingChallenge.firestore();
+
+const db = codingChallenge.firestore();
+
+module.exports = {
+  db,
+  admin: codingChallenge,
+};

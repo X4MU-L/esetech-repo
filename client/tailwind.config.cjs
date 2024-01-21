@@ -3,7 +3,11 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        calch: 'calc(100vh - 90px)',
+      },
+    },
   },
   plugins: [],
 };

@@ -26,6 +26,19 @@ GLOBAL
   --title-fs: 34px;
 }
 
+.form-group {
+  color: var(--primary-color-dark);
+}
+.form-group input {
+  border-radius: 25px;
+  height: 35px;
+  padding: 15px;
+  color: #171717;
+}
+.form-group input:focus {
+  background-color: var(--text-light);
+}
+
 nav {
   background: #222;
   padding: 5px 20px;

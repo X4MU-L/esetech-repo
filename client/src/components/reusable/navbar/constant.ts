@@ -16,7 +16,7 @@ export const LOGGEDINITEMS: endpoint[] = [
     pathName: 'Sign Up',
   },
   {
-    path: '/create_note',
+    path: '/create_notes',
     pathName: 'Create Notes',
   },
 ];
