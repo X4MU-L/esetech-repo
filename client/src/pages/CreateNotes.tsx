@@ -71,8 +71,8 @@ const CreateNotes = () => {
   }, [textAreaError]);
 
   return (
-    <div className='font-open_sans h-full relative grid grid-cols-2 text-xl text-primary font-bold bg-lightGray'>
-      <form className=' py-6 pl-6 w-full flex flex-col' onSubmit={handleSubmit}>
+    <div className='font-open_sans w-full h-full relative grid grid-cols-2 text-xl text-primary font-bold bg-lightGray'>
+      <form className=' w-full flex flex-col' onSubmit={handleSubmit}>
         <h4 className='text-4xl leading-[50.4px] font-extrabold font-raleway'>
           Create Notes
         </h4>
@@ -91,14 +91,13 @@ const CreateNotes = () => {
             id='essay'
             placeholder='Start Typing...'
           ></textarea>
-          <div
+          {/* <div
             className={`${
               errorState ? ' translate-y-0' : ' translate-y-full'
             }  transition delay-[45] ease-in-out duration-200
           absolute flex items-center justify-center right-0 left-0 bottom-0 top-0 bg-lightGray`}
-          ></div>
+          ></div> */}
         </div>
-
         <div className='mt-auto'>
           <Button type='submit' text='Submit' isDisabled={false} bg='' />
         </div>
