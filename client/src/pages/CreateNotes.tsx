@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Button from '../components/reusable/Button';
+import { UserStateContext } from '../context/AppContext';
 
 interface wordsAndCount {
   content: string;
@@ -13,6 +14,8 @@ const CreateNotes = () => {
   const [errorState, setErrorState] = useState<boolean>(false);
   const [textAreaError, setTextAreaError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const state = useContext(UserStateContext)!;
+  const user = state[Object.keys(state)[0]];
   const [{ count, content }, setWordCount] = useState<wordsAndCount>({
     content: '',
     count: 0,
@@ -73,6 +76,9 @@ const CreateNotes = () => {
   return (
     <div className='font-open_sans w-full h-full relative grid grid-cols-2 text-xl text-primary font-bold bg-lightGray'>
       <form className=' w-full flex flex-col' onSubmit={handleSubmit}>
+        <h2>
+          Welcome Back {user.first_name} {user.last_name}
+        </h2>
         <h4 className='text-4xl leading-[50.4px] font-extrabold font-raleway'>
           Create Notes
         </h4>

@@ -4,7 +4,7 @@ import Input from '../components/reusable/Input';
 import { UserDispatchContext, dispatchToStorage } from '../context/AppContext';
 import { auth, firestore } from '../../firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getDoc, doc } from 'firebase/firestore';
 
 const initialFormValues: SignInValues = {
@@ -71,9 +71,21 @@ const Login: React.FC = () => {
         placeholder='enter pasword'
         type='password'
       />
+      <div className='m-auto text-white'>
+        Don't have an account{' '}
+        <Link
+          className=' transition-all duration-100 ease-in-out hover:font-bold text-[#209677]'
+          to='/signup'
+        >
+          sign up
+        </Link>
+      </div>
 
-      <button type='submit' className='btn w-1/2 mx-auto'>
-        Create User
+      <button
+        type='submit'
+        className='p-2 bg-[#209677] text-white flex justify-center rounded-3xl w-1/3 mx-auto '
+      >
+        log in
       </button>
     </form>
   );

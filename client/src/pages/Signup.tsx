@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { SignUpvalues } from '../types';
 import Input from '../components/reusable/Input';
 import { BASE_HOST } from '../constants';
+import { Link, useNavigate } from 'react-router-dom';
 
 const initialFormValues: SignUpvalues = {
   first_name: '',
@@ -12,6 +13,7 @@ const initialFormValues: SignUpvalues = {
 
 const SignUp: React.FC = () => {
   const [formvalues, setFormValues] = useState<SignUpvalues>(initialFormValues);
+  const navigate = useNavigate();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
       ...prev,
@@ -31,8 +33,11 @@ const SignUp: React.FC = () => {
         body: JSON.stringify(formdata),
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+        .then((data: unknown & { status: string }) => {
+          if (data.status === 'success') {
+            setFormValues(initialFormValues);
+            navigate('/login');
+          }
         });
     } catch (err) {
       console.log(err);
@@ -53,8 +58,21 @@ const SignUp: React.FC = () => {
           type={item === 'password' ? 'password' : 'text'}
         />
       ))}
-      <button type='submit' className='btn w-1/2 mx-auto'>
-        Create User
+      <div className='m-auto text-white'>
+        Already have an account?{' '}
+        <Link
+          className=' transition-all duration-100 ease-in-out hover:font-bold text-[#209677]'
+          to='/login'
+        >
+          log in
+        </Link>
+      </div>
+
+      <button
+        type='submit'
+        className='p-2 bg-[#209677] text-white flex justify-center rounded-3xl w-1/3 mx-auto '
+      >
+        Sign up
       </button>
     </form>
   );
