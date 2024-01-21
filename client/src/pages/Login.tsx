@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
-import { SignInValues } from '../types';
+import React, { ChangeEvent, useState, useContext } from 'react';
+import { SignInValues, User } from '../types';
 import Input from '../components/reusable/Input';
-
-import { auth } from '../../firebaseConfig';
+import { UserDispatchContext, dispatchToStorage } from '../context/AppContext';
+import { auth, firestore } from '../../firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { getDoc, doc } from 'firebase/firestore';
 
 const initialFormValues: SignInValues = {
   email: '',
@@ -18,28 +19,39 @@ interface FirbaseError {
 
 const Login: React.FC = () => {
   const [formvalues, setFormValues] = useState<SignInValues>(initialFormValues);
+  const dispatch = useContext(UserDispatchContext);
   const navigate = useNavigate();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const { email, password } = Object.fromEntries(
       new FormData(form)
     ) as unknown as SignInValues;
-    try {
-      const userRef = await signInWithEmailAndPassword(auth, email, password);
 
-      console.log(userRef);
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const userRef = await getDoc(doc(firestore, 'users', user.uid));
+      if (userRef) {
+        if (userRef.exists()) {
+          const data = userRef.data();
+          dispatchToStorage(dispatch, { [user.uid]: data as User });
+        }
+      }
+
       navigate('/create_notes');
     } catch (err: unknown) {
       console.log((err as FirbaseError).code);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}

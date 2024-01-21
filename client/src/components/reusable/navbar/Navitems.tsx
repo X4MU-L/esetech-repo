@@ -1,10 +1,32 @@
+import { useContext } from 'react';
 import { LOGGEDINITEMS } from './constant';
 import { NavLink } from 'react-router-dom';
+import {
+  UserDispatchContext,
+  UserStateContext,
+  dispatchFromStorage,
+} from '../../../context/AppContext';
+import { Logout } from '../../../../firebaseConfig';
+
 const NavItems: React.FC = () => {
+  const state = useContext(UserStateContext);
+  const dispatch = useContext(UserDispatchContext);
+
+  const handleLogOut = async () => {
+    dispatchFromStorage(dispatch, null);
+    await Logout();
+  };
+
   return (
     <ul className='flex gap-6 self-end  items-center'>
       {LOGGEDINITEMS.map((link) => {
         const { path, pathName } = link;
+        if ((path === '/signup' || path === '/login') && state) {
+          return null;
+        }
+        if (path === '/create_notes' && !state) {
+          return null;
+        }
         return (
           <li
             key={pathName}
@@ -29,6 +51,14 @@ const NavItems: React.FC = () => {
           </li>
         );
       })}
+      {state && (
+        <li
+          onClick={handleLogOut}
+          className=' text-white px-6 py-2 rounded-2xl bg-[#28bf96]'
+        >
+          <button>Log Out</button>
+        </li>
+      )}
     </ul>
   );
 };

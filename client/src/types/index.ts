@@ -1,4 +1,4 @@
-export { type User } from './user';
+export { type User, type SavedUser } from './user';
 export { type Notes } from './notes';
 
 export interface SignInValues {
