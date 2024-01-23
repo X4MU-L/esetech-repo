@@ -7,6 +7,9 @@ module.exports = {
       height: {
         calch: 'calc(100vh - 90px)',
       },
+      boxShadow: {
+        in: '0px -2px 2px 0px rgba(0, 0, 0, 0.2) inset',
+      },
     },
   },
   plugins: [],

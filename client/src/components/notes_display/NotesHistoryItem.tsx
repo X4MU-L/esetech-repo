@@ -1,12 +1,20 @@
-export default function NoteHistoryItem({ index }: { index: number }) {
+export default function NoteHistoryItem({
+  index,
+  lastChild,
+}: {
+  index: number;
+  lastChild: number;
+}) {
   return (
     <div className=' first:bg-[rgb(246,250,254)] p-2 grid grid-flow-col-dense gap-3  w-full relative bg-white  text-[#aeabab]'>
       <div
-        className={`tip ${
+        className={`${
           index === 0
-            ? 'before:border-t-[#4646463c] bg-[#28bf96]'
-            : 'before:border-t-[#6d6d6d3c] bg-[#52525293]'
-        } `}
+            ? 'before:border-t-[#4646463c] bg-[#28bf96] tip'
+            : lastChild === index
+            ? 'bg-[#52525293]'
+            : 'before:border-t-[#6d6d6d3c] bg-[#52525293] tip'
+        } w-3 h-3 rounded-xl  flex items-center justify-center`}
       ></div>
       <div className='flex flex-col justify-center gap-1 max-w-[95%] w-full overflow-hidden'>
         <p className='text-xs font-normal text-slate-800 whitespace-nowrap overflow-ellipsis w-full overflow-hidden'>
