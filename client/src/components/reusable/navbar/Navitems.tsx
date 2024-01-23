@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { LOGGEDINITEMS } from './constant';
-import { NavLink } from 'react-router-dom';
+import { NavLink, redirect, useNavigate } from 'react-router-dom';
 import {
   UserDispatchContext,
   UserStateContext,
@@ -11,10 +11,12 @@ import { Logout } from '../../../../firebaseConfig';
 const NavItems: React.FC = () => {
   const state = useContext(UserStateContext);
   const dispatch = useContext(UserDispatchContext);
+  const navigate = useNavigate();
 
   const handleLogOut = async () => {
     dispatchFromStorage(dispatch, null);
     await Logout();
+    navigate('/');
   };
 
   return (

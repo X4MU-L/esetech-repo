@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/notes', require('./routes/notes'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

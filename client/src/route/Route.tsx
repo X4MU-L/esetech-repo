@@ -4,10 +4,10 @@ import Login from '../pages/Login';
 
 import SignUp from '../pages/Signup';
 import Hero from '../components/landing/Hero';
-import CreateNotes from '../pages/CreateNotes';
 
 // loader
-import { loader } from '../../utils';
+import { loader } from '../utils';
+import NotesPage from '../pages/NotesPage';
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/create_notes',
-        element: <CreateNotes />,
+        element: <NotesPage />,
         loader,
       },
     ],

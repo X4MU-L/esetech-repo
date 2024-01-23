@@ -25,7 +25,7 @@ getAnalytics(app);
 export const firestore = getFirestore(app);
 export const auth = getAuth(app);
 export const loggedIn = async (callback: NextOrObserver<User>) => {
-  onAuthStateChanged(auth, callback);
+  return onAuthStateChanged(auth, callback);
 };
 
 export const Logout = async () => {

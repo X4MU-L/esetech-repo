@@ -1,13 +1,14 @@
 import { redirect } from 'react-router-dom';
-import { loggedIn } from './firebaseConfig';
+import { loggedIn } from '../firebaseConfig';
 
 export async function loader() {
-  let islogged = false;
-  await loggedIn((user) => {
+  const islogged = await loggedIn((user) => {
     if (user) {
-      islogged = true;
+      return true;
     }
+    return false;
   });
+
   if (!islogged) {
     return redirect('/login');
   }
